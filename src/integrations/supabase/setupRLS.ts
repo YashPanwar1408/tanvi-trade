@@ -6,7 +6,7 @@ import { supabase } from "./client";
 export const setupInitialRLSPolicies = async () => {
   try {
     // Create RLS policies for order_items table
-    const { error } = await supabase.rpc<void, Record<string, never>>('setup_order_items_rls');
+    const { error } = await supabase.rpc('setup_order_items_rls');
     
     if (error) {
       console.error('Error setting up RLS policies:', error);
