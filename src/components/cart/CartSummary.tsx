@@ -12,8 +12,8 @@ const CartSummary = () => {
     const calculateSubtotal = getTotalPrice();
     setSubtotal(calculateSubtotal);
     
-    // Calculate shipping (free shipping for orders over $50)
-    const calculatedShipping = calculateSubtotal >= 50 ? 0 : 5.99;
+    // Calculate shipping (free shipping for orders over ₹1000)
+    const calculatedShipping = calculateSubtotal >= 1000 ? 0 : 99;
     setShipping(calculatedShipping);
     
     // Calculate total
@@ -24,7 +24,7 @@ const CartSummary = () => {
     <div className="space-y-3">
       <div className="flex justify-between text-gray-600">
         <span>Subtotal</span>
-        <span>${subtotal.toFixed(2)}</span>
+        <span>₹{subtotal.toFixed(2)}</span>
       </div>
       
       <div className="flex justify-between text-gray-600">
@@ -33,14 +33,14 @@ const CartSummary = () => {
           {shipping === 0 ? (
             <span className="text-green-500">Free</span>
           ) : (
-            `$${shipping.toFixed(2)}`
+            `₹${shipping.toFixed(2)}`
           )}
         </span>
       </div>
       
       {shipping > 0 && (
         <div className="text-xs text-gray-500">
-          Free shipping on orders over $50
+          Free shipping on orders over ₹1000
         </div>
       )}
       
@@ -48,7 +48,7 @@ const CartSummary = () => {
       
       <div className="flex justify-between font-medium text-gray-900">
         <span>Total</span>
-        <span>${total.toFixed(2)}</span>
+        <span>₹{total.toFixed(2)}</span>
       </div>
     </div>
   );

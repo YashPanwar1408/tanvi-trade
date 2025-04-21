@@ -13,11 +13,11 @@ const OrderSummary = () => {
     const calculateSubtotal = getTotalPrice();
     setSubtotal(calculateSubtotal);
     
-    // Calculate shipping (free shipping for orders over $50)
-    const calculatedShipping = calculateSubtotal >= 50 ? 0 : 5.99;
+    // Calculate shipping (free shipping for orders over ₹1000)
+    const calculatedShipping = calculateSubtotal >= 1000 ? 0 : 99;
     setShipping(calculatedShipping);
     
-    // Calculate tax (assume 7% tax rate)
+    // Calculate tax (7% GST)
     const calculatedTax = calculateSubtotal * 0.07;
     setTax(calculatedTax);
     
@@ -35,7 +35,7 @@ const OrderSummary = () => {
             <div className="flex items-center">
               <span className="text-gray-700">{item.quantity} x {item.name}</span>
             </div>
-            <span className="font-medium">${(item.price * item.quantity).toFixed(2)}</span>
+            <span className="font-medium">₹{(item.price * item.quantity).toFixed(2)}</span>
           </div>
         ))}
       </div>
@@ -43,7 +43,7 @@ const OrderSummary = () => {
       <div className="border-t border-gray-200 mt-4 pt-4 space-y-2">
         <div className="flex justify-between text-gray-600">
           <span>Subtotal</span>
-          <span>${subtotal.toFixed(2)}</span>
+          <span>₹{subtotal.toFixed(2)}</span>
         </div>
         
         <div className="flex justify-between text-gray-600">
@@ -52,19 +52,19 @@ const OrderSummary = () => {
             {shipping === 0 ? (
               <span className="text-green-500">Free</span>
             ) : (
-              `$${shipping.toFixed(2)}`
+              `₹${shipping.toFixed(2)}`
             )}
           </span>
         </div>
         
         <div className="flex justify-between text-gray-600">
           <span>Tax (7%)</span>
-          <span>${tax.toFixed(2)}</span>
+          <span>₹{tax.toFixed(2)}</span>
         </div>
         
         <div className="pt-2 mt-2 border-t border-gray-200 flex justify-between font-semibold text-gray-900">
           <span>Total</span>
-          <span>${total.toFixed(2)}</span>
+          <span>₹{total.toFixed(2)}</span>
         </div>
       </div>
     </div>

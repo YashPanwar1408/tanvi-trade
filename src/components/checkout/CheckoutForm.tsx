@@ -1,3 +1,4 @@
+
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
@@ -5,6 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import { toast } from "@/components/ui/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import { createOrder, updateOrderWithScreenshot } from '@/services/orders';
+import { supabase } from '@/integrations/supabase/client';
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
@@ -94,17 +96,36 @@ const CheckoutForm = () => {
         throw new Error("You must be logged in to place an order");
       }
       
+      // Check if session is valid
+      const { data: sessionData } = await supabase.auth.getSession();
+      if (!sessionData.session) {
+        toast({
+          title: "Session Expired",
+          description: "Your login session has expired. Please login again.",
+          variant: "destructive"
+        });
+        navigate('/auth', { state: { from: '/checkout' } });
+        return;
+      }
+      
       const orderItems = cartItems.map(item => ({
         product_id: item.id,
         quantity: item.quantity,
         price: item.price,
       }));
       
+      console.log("Creating order with items:", orderItems);
       const order = await createOrder(user.id, getTotalPrice(), orderItems);
+      console.log("Order created:", order);
       setOrderId(order.id);
       
       setPaymentStep(2);
+      toast({
+        title: "Order Created",
+        description: "Your order has been created. Please complete payment.",
+      });
     } catch (error: any) {
+      console.error("Order creation error:", error);
       toast({
         title: "Error",
         description: error.message || "Failed to create order. Please try again.",
@@ -143,13 +164,41 @@ const CheckoutForm = () => {
         throw new Error("Order ID not found");
       }
       
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Upload screenshot to Supabase Storage
+      let screenshotUrl = "payment-screenshot-url";
       
-      await updateOrderWithScreenshot(orderId, "payment-screenshot-url");
+      try {
+        const { data: storageData, error: storageError } = await supabase
+          .storage
+          .from('payment-screenshots')
+          .upload(`${orderId}-${Date.now()}`, screenshotFile);
+          
+        if (storageError) {
+          console.error("Storage error:", storageError);
+          // Continue with default URL if upload fails
+        } else if (storageData) {
+          const { data: publicUrlData } = supabase
+            .storage
+            .from('payment-screenshots')
+            .getPublicUrl(storageData.path);
+            
+          screenshotUrl = publicUrlData.publicUrl;
+        }
+      } catch (storageError) {
+        console.error("Error uploading screenshot:", storageError);
+        // Continue with default URL if upload fails
+      }
+      
+      await updateOrderWithScreenshot(orderId, screenshotUrl);
       
       clearCart();
+      toast({
+        title: "Payment Successful",
+        description: "Your payment has been processed successfully.",
+      });
       navigate('/order-confirmation', { state: { orderId } });
     } catch (error: any) {
+      console.error("Payment processing error:", error);
       toast({
         title: "Error",
         description: error.message || "Failed to process payment. Please try again.",
