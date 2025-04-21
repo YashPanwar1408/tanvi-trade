@@ -13,6 +13,7 @@ export interface Product {
   bestSeller?: boolean;
   isNew?: boolean;
   discount?: number;
+  brandId?: string;
 }
 
 export interface CartItem {
@@ -35,4 +36,38 @@ export interface Testimonial {
   image: string;
   comment: string;
   rating: number;
+}
+
+export interface Brand {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  slug: string;
+}
+
+export interface User {
+  id: string;
+  email: string;
+  full_name?: string;
+}
+
+export interface Order {
+  id: string;
+  user_id: string;
+  total_amount: number;
+  status: string;
+  payment_screenshot?: string;
+  created_at: string;
+  updated_at: string;
+  items?: OrderItem[];
+}
+
+export interface OrderItem {
+  id: string;
+  order_id: string;
+  product_id: number;
+  quantity: number;
+  price: number;
+  created_at: string;
 }

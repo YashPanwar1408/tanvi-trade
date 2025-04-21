@@ -1,157 +1,165 @@
 
 import { Product } from '../types';
 
-export const products: Product[] = [
+// Mock product data
+const products: Product[] = [
   {
     id: 1,
-    name: "Radiant Glow Foundation",
-    price: 39.99,
-    description: "A lightweight, buildable foundation that gives your skin a natural, radiant finish. Infused with vitamin E and hyaluronic acid for all-day hydration.",
-    image: "https://images.unsplash.com/photo-1596704017254-9a89bd5ad7a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    category: "face",
-    rating: 4.8,
+    name: 'Matte Lipstick',
+    price: 19.99,
+    description: 'Long-lasting matte lipstick in a variety of shades.',
+    image: '/placeholder.svg',
+    category: 'Lips',
+    rating: 4.5,
     reviews: 124,
     inStock: true,
     featured: true,
-    bestSeller: true
+    bestSeller: true,
+    brandId: 'sugar'
   },
   {
     id: 2,
-    name: "Velvet Matte Lipstick",
-    price: 24.99,
-    description: "A creamy, highly pigmented lipstick that delivers a soft matte finish with exceptional comfort. Long-lasting and non-drying formula.",
-    image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    category: "lips",
-    rating: 4.6,
-    reviews: 89,
+    name: 'Foundation',
+    price: 29.99,
+    description: 'Lightweight foundation with medium to full coverage.',
+    image: '/placeholder.svg',
+    category: 'Face',
+    rating: 4.3,
+    reviews: 98,
     inStock: true,
-    featured: true
+    featured: true,
+    brandId: 'lakme'
   },
   {
     id: 3,
-    name: "Precision Liquid Eyeliner",
-    price: 19.99,
-    description: "A waterproof, smudge-proof eyeliner with a fine-tip applicator for precise, defined lines. Intense color that lasts all day.",
-    image: "https://images.unsplash.com/photo-1631214524020-5d2556b49b39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    category: "eyes",
+    name: 'Mascara',
+    price: 14.99,
+    description: 'Volumizing mascara for dramatic lashes.',
+    image: '/placeholder.svg',
+    category: 'Eyes',
     rating: 4.7,
-    reviews: 56,
-    inStock: true
+    reviews: 156,
+    inStock: true,
+    featured: true,
+    brandId: 'glamup21'
   },
   {
     id: 4,
-    name: "Hydrating Rose Face Mist",
-    price: 22.99,
-    description: "A refreshing face mist infused with rose water and glycerin to hydrate, soothe, and revitalize the skin. Perfect for on-the-go hydration.",
-    image: "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    category: "skincare",
-    rating: 4.5,
-    reviews: 42,
+    name: 'Eyeshadow Palette',
+    price: 39.99,
+    description: 'Versatile eyeshadow palette with 12 complementary shades.',
+    image: '/placeholder.svg',
+    category: 'Eyes',
+    rating: 4.6,
+    reviews: 87,
     inStock: true,
-    featured: true
+    featured: true,
+    brandId: 'renee'
   },
   {
     id: 5,
-    name: "Silk Smooth Concealer",
-    price: 27.99,
-    description: "A creamy, full-coverage concealer that seamlessly covers dark circles and imperfections without creasing or settling into fine lines.",
-    image: "https://images.unsplash.com/photo-1631214570489-51842e327626?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    category: "face",
-    rating: 4.9,
-    reviews: 78,
-    inStock: true
+    name: 'Blush',
+    price: 17.99,
+    description: 'Natural-looking blush for a healthy glow.',
+    image: '/placeholder.svg',
+    category: 'Face',
+    rating: 4.2,
+    reviews: 63,
+    inStock: true,
+    brandId: 'lakme'
   },
   {
     id: 6,
-    name: "Volumizing Mascara",
-    price: 21.99,
-    description: "A volumizing mascara that instantly lifts and separates lashes for a dramatic, clump-free look. Long-lasting formula that doesn't smudge or flake.",
-    image: "https://images.unsplash.com/photo-1631214499975-88695fcf2d33?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    category: "eyes",
-    rating: 4.6,
-    reviews: 63,
+    name: 'Lip Gloss',
+    price: 15.99,
+    description: 'Shiny lip gloss with moisturizing ingredients.',
+    image: '/placeholder.svg',
+    category: 'Lips',
+    rating: 4.4,
+    reviews: 72,
     inStock: true,
-    bestSeller: true
+    brandId: 'sugar'
   },
   {
     id: 7,
-    name: "Sunrise Eyeshadow Palette",
-    price: 44.99,
-    description: "A versatile eyeshadow palette featuring 12 highly pigmented shades in matte, shimmer, and metallic finishes. Create endless eye looks from subtle to dramatic.",
-    image: "https://images.unsplash.com/photo-1596706696066-7c9cdcf528d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    category: "eyes",
+    name: 'Highlighting Powder',
+    price: 24.99,
+    description: 'Illuminating highlighting powder for a radiant complexion.',
+    image: '/placeholder.svg',
+    category: 'Face',
     rating: 4.8,
-    reviews: 105,
+    reviews: 112,
     inStock: true,
-    featured: true
+    bestSeller: true,
+    brandId: 'glamup21'
   },
   {
     id: 8,
-    name: "Hyaluronic Acid Serum",
-    price: 34.99,
-    description: "A hydrating serum formulated with hyaluronic acid to plump and moisturize the skin, reducing the appearance of fine lines and promoting a youthful complexion.",
-    image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    category: "skincare",
-    rating: 4.9,
-    reviews: 92,
+    name: 'Brow Pencil',
+    price: 12.99,
+    description: 'Precision brow pencil for defined eyebrows.',
+    image: '/placeholder.svg',
+    category: 'Eyes',
+    rating: 4.1,
+    reviews: 58,
     inStock: true,
-    bestSeller: true
+    brandId: 'renee'
   },
   {
     id: 9,
-    name: "Natural Blush Duo",
-    price: 29.99,
-    description: "A dual-shade blush compact with silky, buildable color that blends seamlessly for a natural-looking flush. Long-lasting and suitable for all skin types.",
-    image: "https://images.unsplash.com/photo-1515688594390-b649af70d282?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    category: "face",
-    rating: 4.6,
-    reviews: 48,
-    inStock: true
+    name: 'Setting Spray',
+    price: 22.99,
+    description: 'Long-lasting setting spray to keep makeup in place all day.',
+    image: '/placeholder.svg',
+    category: 'Face',
+    rating: 4.5,
+    reviews: 94,
+    inStock: true,
+    brandId: 'lakme'
   },
   {
     id: 10,
-    name: "Vitamin C Brightening Moisturizer",
-    price: 38.99,
-    description: "A daily moisturizer enriched with vitamin C to brighten dull skin, even out skin tone, and provide essential hydration. Suitable for all skin types.",
-    image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    category: "skincare",
-    rating: 4.7,
-    reviews: 71,
-    inStock: true
+    name: 'Liquid Eyeliner',
+    price: 16.99,
+    description: 'Smudge-proof liquid eyeliner for precise application.',
+    image: '/placeholder.svg',
+    category: 'Eyes',
+    rating: 4.6,
+    reviews: 108,
+    inStock: true,
+    brandId: 'sugar'
   },
   {
     id: 11,
-    name: "Tinted Lip Balm Set",
-    price: 18.99,
-    description: "A set of three tinted lip balms that provide sheer, buildable color and nourishing hydration. Formulated with shea butter and vitamin E for soft, smooth lips.",
-    image: "https://images.unsplash.com/photo-1599305090598-fe179d501227?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    category: "lips",
-    rating: 4.5,
-    reviews: 39,
+    name: 'Face Primer',
+    price: 27.99,
+    description: 'Smoothing face primer for flawless makeup application.',
+    image: '/placeholder.svg',
+    category: 'Face',
+    rating: 4.4,
+    reviews: 76,
     inStock: true,
-    isNew: true
+    isNew: true,
+    brandId: 'glamup21'
   },
   {
     id: 12,
-    name: "Dewy Highlighter Stick",
-    price: 26.99,
-    description: "A creamy highlighter stick that adds a natural, dewy glow to the skin. Blends seamlessly for a subtle, lit-from-within radiance.",
-    image: "https://images.unsplash.com/photo-1595621864337-1f61392683bd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    category: "face",
-    rating: 4.7,
-    reviews: 55,
+    name: 'Lip Balm',
+    price: 9.99,
+    description: 'Hydrating lip balm with SPF protection.',
+    image: '/placeholder.svg',
+    category: 'Lips',
+    rating: 4.2,
+    reviews: 82,
     inStock: true,
-    isNew: true
+    discount: 15,
+    brandId: 'renee'
   }
 ];
 
-export const categories = [
-  { id: "all", name: "All Products" },
-  { id: "face", name: "Face" },
-  { id: "eyes", name: "Eyes" },
-  { id: "lips", name: "Lips" },
-  { id: "skincare", name: "Skincare" }
-];
+export const getAllProducts = (): Product[] => {
+  return products;
+};
 
 export const getProductById = (id: number): Product | undefined => {
   return products.find(product => product.id === id);
@@ -161,16 +169,31 @@ export const getFeaturedProducts = (): Product[] => {
   return products.filter(product => product.featured);
 };
 
+export const getProductsByCategory = (category: string): Product[] => {
+  return products.filter(product => product.category === category);
+};
+
+export const getProductsByBrand = (brandName: string): Product[] => {
+  // Map brand names to brandIds
+  const brandIdMap: { [key: string]: string } = {
+    'Sugar': 'sugar',
+    'Lakme': 'lakme',
+    'GlamUp21': 'glamup21',
+    'Renee': 'renee'
+  };
+  
+  const brandId = brandIdMap[brandName] || brandName.toLowerCase();
+  return products.filter(product => product.brandId === brandId);
+};
+
 export const getBestSellers = (): Product[] => {
   return products.filter(product => product.bestSeller);
 };
 
-export const getNewArrivals = (): Product[] => {
+export const getNewProducts = (): Product[] => {
   return products.filter(product => product.isNew);
 };
 
-export const getRelatedProducts = (currentProductId: number, category: string): Product[] => {
-  return products
-    .filter(product => product.category === category && product.id !== currentProductId)
-    .slice(0, 4);
+export const getSaleProducts = (): Product[] => {
+  return products.filter(product => product.discount && product.discount > 0);
 };

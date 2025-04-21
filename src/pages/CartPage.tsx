@@ -1,12 +1,31 @@
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import CartItem from '../components/cart/CartItem';
 import CartSummary from '../components/cart/CartSummary';
+import { toast } from "@/components/ui/use-toast";
 
 const CartPage = () => {
   const { cartItems } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  
+  const handleCheckout = () => {
+    if (!user) {
+      toast({
+        title: "Login Required",
+        description: "Please login or create an account to complete your purchase.",
+        variant: "destructive"
+      });
+      navigate('/auth', { state: { from: '/checkout' } });
+      return;
+    }
+    
+    // Proceed to checkout
+    navigate('/checkout');
+  };
   
   return (
     <div className="pt-24 pb-16">
@@ -48,7 +67,18 @@ const CartPage = () => {
             </div>
             
             <div className="w-full lg:w-1/3">
-              <CartSummary />
+              <div className="bg-gray-50 rounded-lg p-6">
+                <h2 className="text-xl font-medium text-gray-900 mb-4">Order Summary</h2>
+                
+                <CartSummary />
+                
+                <button 
+                  onClick={handleCheckout}
+                  className="btn-primary w-full text-center mt-6 block"
+                >
+                  Proceed to Checkout
+                </button>
+              </div>
             </div>
           </div>
         )}

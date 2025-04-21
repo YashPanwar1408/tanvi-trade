@@ -1,15 +1,16 @@
 
 import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { CheckCheck } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 const OrderConfirmationPage = () => {
   const { cartItems } = useCart();
   const navigate = useNavigate();
+  const location = useLocation();
   
-  // Generate a random order number
-  const orderNumber = `TVC-${Math.floor(100000 + Math.random() * 900000)}`;
+  // Get order ID from location state
+  const orderId = location.state?.orderId || `TVC-${Math.floor(100000 + Math.random() * 900000)}`;
   
   useEffect(() => {
     // If cart has items, user probably refreshed the confirmation page
@@ -34,13 +35,13 @@ const OrderConfirmationPage = () => {
           </h1>
           
           <p className="text-gray-600 mb-6">
-            Thank you for your purchase. Your order has been confirmed.
+            Thank you for your purchase. Your payment has been received and your order has been confirmed.
           </p>
           
           <div className="bg-gray-50 p-6 rounded-lg mb-6">
             <div className="flex justify-between items-center mb-4">
               <span className="text-gray-500">Order Number:</span>
-              <span className="font-medium text-gray-900">{orderNumber}</span>
+              <span className="font-medium text-gray-900">{orderId}</span>
             </div>
             
             <div className="flex justify-between items-center">
