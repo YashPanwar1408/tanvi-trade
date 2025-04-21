@@ -13,14 +13,44 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState as useReactState } from 'react';
+import { Brand } from '@/types';
+import { getBrands } from '@/services/brands';
 
 const Navbar = () => {
   const { cartItems } = useCart();
-  const { user, signOut } = useAuth(); // Changed from logout to signOut to match AuthContext
+  const { user, signOut } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [brands, setBrands] = useState<Brand[]>([]);
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const data = await getBrands();
+        setBrands(data);
+      } catch (error) {
+        console.error('Error fetching brands:', error);
+      }
+    };
+    
+    fetchBrands();
+  }, []);
   
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+  
+  const handleBrandChange = (value: string) => {
+    navigate(`/brands/${value}`);
   };
   
   return (
@@ -29,14 +59,30 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="text-2xl font-serif font-bold text-gray-900">
-            The Vintage Cosmetic
+            Tanvi Traders
           </Link>
           
           {/* Navigation Links */}
           <nav className="hidden md:flex items-center space-x-6">
             <NavLink to="/" className="nav-link">Home</NavLink>
             <NavLink to="/products" className="nav-link">Products</NavLink>
-            <NavLink to="/brands" className="nav-link">Brands</NavLink>
+            
+            {/* Brands Dropdown */}
+            <div className="relative">
+              <Select onValueChange={handleBrandChange}>
+                <SelectTrigger className="w-[180px] nav-link bg-transparent border-none shadow-none focus:ring-0">
+                  <SelectValue placeholder="Brands" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Brands</SelectItem>
+                  {brands.map(brand => (
+                    <SelectItem key={brand.id} value={brand.slug}>
+                      {brand.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </nav>
           
           {/* Mobile Menu Button */}
@@ -86,7 +132,7 @@ const Navbar = () => {
                 <DropdownMenuContent className="w-56" align="end" forceMount>
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem><Link to="/orders">Orders</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link to="/orders">Orders</Link></DropdownMenuItem>
                   <DropdownMenuItem onClick={signOut}>Logout</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

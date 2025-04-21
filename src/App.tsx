@@ -16,6 +16,7 @@ import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 import BrandsPage from "./pages/BrandsPage";
 import BrandDetailPage from "./pages/BrandDetailPage";
 import AuthPage from "./pages/AuthPage";
+import OrdersPage from "./pages/OrdersPage";
 
 // Layout Components
 import Navbar from "./components/Navbar";
@@ -58,6 +59,11 @@ const App = () => (
                   <Route path="/brands" element={<BrandsPage />} />
                   <Route path="/brands/:slug" element={<BrandDetailPage />} />
                   <Route path="/auth" element={<AuthPage />} />
+                  <Route path="/orders" element={
+                    <RequireAuth>
+                      <OrdersPage />
+                    </RequireAuth>
+                  } />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>

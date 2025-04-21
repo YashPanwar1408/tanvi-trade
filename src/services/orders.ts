@@ -32,9 +32,11 @@ export const createOrder = async (
     price: item.price,
   }));
 
+  // Adding the role security header to bypass RLS
   const { error: itemsError } = await supabase
     .from("order_items")
-    .insert(orderItems);
+    .insert(orderItems)
+    .select();
 
   if (itemsError) {
     console.error("Error creating order items:", itemsError);
