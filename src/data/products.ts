@@ -1,4 +1,3 @@
-
 import { Product } from '../types';
 
 // Mock product data
@@ -155,6 +154,13 @@ const products: Product[] = [
     discount: 15,
     brandId: 'renee'
   }
+];
+
+export const categories = [
+  { id: "all", name: "All" },
+  { id: "Lips", name: "Lips" },
+  { id: "Face", name: "Face" },
+  { id: "Eyes", name: "Eyes" },
 ];
 
 export const getAllProducts = (): Product[] => {

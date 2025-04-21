@@ -1,10 +1,9 @@
-
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Brand, Product } from '@/types';
 import { getBrandBySlug } from '@/services/brands';
-import ProductCard from '@/components/products/ProductCard';
 import { getProductsByBrand } from '@/data/products';
+import ProductCard from '@/components/products/ProductCard';
 
 const BrandDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();

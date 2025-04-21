@@ -1,4 +1,3 @@
-
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
@@ -37,7 +36,6 @@ const CheckoutForm = () => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     
-    // Clear error when field is being edited
     if (errors[name]) {
       setErrors(prev => {
         const newErrors = { ...prev };
@@ -50,7 +48,6 @@ const CheckoutForm = () => {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     
-    // Basic validation
     if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
     if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
     if (!formData.email.trim()) newErrors.email = 'Email is required';
@@ -70,7 +67,6 @@ const CheckoutForm = () => {
       const file = e.target.files[0];
       setScreenshotFile(file);
       
-      // Create preview
       const reader = new FileReader();
       reader.onloadend = () => {
         setScreenshotPreview(reader.result as string);
@@ -94,7 +90,6 @@ const CheckoutForm = () => {
     setIsProcessing(true);
     
     try {
-      // Create order in database
       if (!user) {
         throw new Error("You must be logged in to place an order");
       }
@@ -103,13 +98,11 @@ const CheckoutForm = () => {
         product_id: item.id,
         quantity: item.quantity,
         price: item.price,
-        order_id: "", // Will be filled by the backend
       }));
       
       const order = await createOrder(user.id, getTotalPrice(), orderItems);
       setOrderId(order.id);
       
-      // Move to payment step
       setPaymentStep(2);
     } catch (error: any) {
       toast({
@@ -150,21 +143,10 @@ const CheckoutForm = () => {
         throw new Error("Order ID not found");
       }
       
-      // In a real application, we would upload the file to storage
-      // For now, we'll just pretend we're doing that
-      // const { data, error } = await supabase.storage
-      //   .from('payment-screenshots')
-      //   .upload(`${orderId}.png`, screenshotFile);
-      
-      // if (error) throw error;
-      
-      // Simulate file upload
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Update order with screenshot URL
       await updateOrderWithScreenshot(orderId, "payment-screenshot-url");
       
-      // Clear cart and redirect to confirmation
       clearCart();
       navigate('/order-confirmation', { state: { orderId } });
     } catch (error: any) {
@@ -182,7 +164,6 @@ const CheckoutForm = () => {
     <>
       {paymentStep === 1 && (
         <form onSubmit={handleSubmitShipping} className="space-y-8">
-          {/* Shipping Information */}
           <div>
             <h2 className="text-xl font-medium text-gray-900 mb-4">Shipping Information</h2>
             
@@ -309,7 +290,6 @@ const CheckoutForm = () => {
             </div>
           </div>
           
-          {/* Submit Button */}
           <div>
             <button 
               type="submit" 

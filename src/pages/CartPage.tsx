@@ -1,4 +1,3 @@
-
 import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
@@ -23,7 +22,6 @@ const CartPage = () => {
       return;
     }
     
-    // Proceed to checkout
     navigate('/checkout');
   };
   
