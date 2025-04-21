@@ -1,18 +1,18 @@
 
 import { useState, useEffect } from 'react';
-import { products, categories } from '../data/products';
+import { getAllProducts, categories } from '../data/products';
 import ProductFilter from '../components/products/ProductFilter';
 import ProductGrid from '../components/products/ProductGrid';
 import { Product } from '../types';
 
 const ProductsPage = () => {
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
   const [sortBy, setSortBy] = useState('featured');
   
   useEffect(() => {
-    let result = [...products];
+    let result = getAllProducts();
     
     // Filter by category
     if (selectedCategory !== 'all') {

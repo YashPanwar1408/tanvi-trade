@@ -1,7 +1,8 @@
+
 import { Product } from '../types';
 
 // Mock product data
-const products: Product[] = [
+export const products: Product[] = [
   {
     id: 1,
     name: 'Matte Lipstick',
@@ -202,4 +203,11 @@ export const getNewProducts = (): Product[] => {
 
 export const getSaleProducts = (): Product[] => {
   return products.filter(product => product.discount && product.discount > 0);
+};
+
+// Add the missing getRelatedProducts function
+export const getRelatedProducts = (productId: number, category: string): Product[] => {
+  return products
+    .filter(product => product.id !== productId && product.category === category)
+    .slice(0, 4); // Return up to 4 related products
 };

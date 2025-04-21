@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { ShoppingBag } from 'lucide-react';
@@ -15,7 +16,7 @@ import {
 
 const Navbar = () => {
   const { cartItems } = useCart();
-  const { user, logout } = useAuth();
+  const { user, signOut } = useAuth(); // Changed from logout to signOut to match AuthContext
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   const toggleMenu = () => {
@@ -77,8 +78,8 @@ const Navbar = () => {
                 <DropdownMenuTrigger asChild>
                   <button className="rounded-full overflow-hidden border-2 border-gray-200 focus:outline-none focus:border-pink transition-colors">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src="https://github.com/shadcn.png" alt={user.full_name || user.email} />
-                      <AvatarFallback>{user.full_name?.slice(0, 2).toUpperCase() || user.email.slice(0, 2).toUpperCase()}</AvatarFallback>
+                      <AvatarImage src="https://github.com/shadcn.png" alt={user.email} />
+                      <AvatarFallback>{user.email?.slice(0, 2).toUpperCase()}</AvatarFallback>
                     </Avatar>
                   </button>
                 </DropdownMenuTrigger>
@@ -86,7 +87,7 @@ const Navbar = () => {
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem><Link to="/orders">Orders</Link></DropdownMenuItem>
-                  <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
+                  <DropdownMenuItem onClick={signOut}>Logout</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
@@ -106,7 +107,7 @@ const Navbar = () => {
             <NavLink to="/products" className="nav-link">Products</NavLink>
             <NavLink to="/brands" className="nav-link">Brands</NavLink>
             {user ? (
-              <button onClick={logout} className="nav-link">Logout</button>
+              <button onClick={signOut} className="nav-link">Logout</button>
             ) : (
               <NavLink to="/auth" className="nav-link">Login</NavLink>
             )}
