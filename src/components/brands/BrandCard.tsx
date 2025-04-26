@@ -1,6 +1,7 @@
+// src/components/brands/BrandCard.tsx
 
 import { Link } from 'react-router-dom';
-import { Brand } from '@/types';
+import { Brand } from '@/data/brands'; // Make sure this matches your import
 
 interface BrandCardProps {
   brand: Brand;
@@ -12,7 +13,7 @@ const BrandCard = ({ brand }: BrandCardProps) => {
       <div 
         className="aspect-[3/2] bg-cover bg-center"
         style={{ 
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url(${brand.image})`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url(${brand.coverImageUrl})`,
         }}
       >
         <div className="absolute inset-0 p-6 flex flex-col justify-end">
