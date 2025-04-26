@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+.navbar {
+  z-index: 50;
+  position: relative;
+}
